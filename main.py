@@ -11,6 +11,10 @@ def index():
 def about():
     return "World"
 
+@app.route("/inventory")
+def inventory():
+    return render_template("inventory.html")
+
 @app.route("/search", methods=['POST', 'GET'])
 def search():
 
