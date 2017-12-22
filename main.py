@@ -11,6 +11,9 @@ def index():
 def about():
     return "World"
 
+@app.route("/specials")
+def specials():
+    return render_template("specials.html")
 @app.route("/inventory")
 def inventory():
     return render_template("inventory.html")
