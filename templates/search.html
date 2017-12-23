@@ -17,6 +17,8 @@
     </div>
 </menu>
 <form name="searchMe" id="SearchForm" method="POST">
+    
+        <input type="button" value="Advanced Search" id="adv-search" onclick="advancedSearch()"><br><br>
     <label>Make</label>
     <select name="make">
       <option value="{{makes[0]}}" selected>{{makes[0]}}</option>
@@ -24,11 +26,12 @@
         <option value="{{make}}">{{make}}</option>
       {% endfor %}
     </select>
-
+    <label id="min-price">Min Price Amount
+        <input type="text" name="min-price" onblur="isNumeric('min-price', 'price_msg')">
+    </label>
     <label>Max Price Amount</label>
         <input type="text" name="price" id="price" onblur="isNumeric('price', 'price_msg')"/>
     <span class="error" id=price_msg></span>
-
     <div>
 
         <button type="submit" id="searchButton" value="Search">Search</button>

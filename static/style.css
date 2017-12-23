@@ -36,3 +36,8 @@ h1{
         background-color: #4CAF50;
     color: white;
 }
+
+/*Hide the minimum price input by default */
+#min-price {
+    display: none;
+}

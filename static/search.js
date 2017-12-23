@@ -9,3 +9,16 @@ function isNumeric(valueElement, messageElement){
         document.getElementById(messageElement).innerHTML = "";
     }
 }
+
+function advancedSearch(){
+    var elem = document.getElementById('min-price');
+    var button = document.getElementById('adv-search')
+    if (elem.style.display == 'inline') {
+        elem.style.display = 'none';
+        button.value = 'Advanced Search'
+            }
+    else {
+        elem.style.display = 'inline';
+        button.value = 'Simple Search';
+    }
+}
