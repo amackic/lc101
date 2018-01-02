@@ -1,0 +1,13 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+    {% if current_hour|length == 0 %}
+        <H1>Good Morning</H1>
+    {% else %}
+        <h1>Good Afternoon </h1>
+    {% endif %}
+
+{% endblock %}
+
+

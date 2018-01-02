@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+    <head>
+        <title>{{title}}</title>
+          <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    </head>
+<body>
+    <menu>
+        <div class="topnav" id="myTopnav">
+              <a href="/">HOME</a>
+              <a href="/search">SEARCH INVENTORY</a>
+              <a href="/about">ABOUT</a>
+        </div>
+    </menu>
+
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>

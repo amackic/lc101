@@ -1,5 +1,4 @@
 function isNumeric(valueElement, messageElement){
-    debugger;
     var value = document.getElementById(valueElement).value;
     if (!(!isNaN(parseFloat(value)) && isFinite(value))){
         document.getElementById('searchButton').disabled = true;

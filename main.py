@@ -1,4 +1,8 @@
 from flask import Flask, render_template, request
+import datetime
+
+from InputValidator import InputValidator
+
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -9,7 +13,12 @@ def index():
 
 @app.route("/about")
 def about():
-    return "World"
+    now = 11
+    if now >= 12:
+        return render_template('about.html', current_hour=str(now))
+    else:
+        return render_template('about.html',current_hour="")
+
 
 @app.route("/specials")
 def specials():
@@ -30,9 +39,11 @@ def search():
         'smart', 'SRT', 'Subaru', 'Suzuki', 'Tesla', 'Toyota', 'Volkswagen', 'Volvo', 'Yugo']
 
     if request.method == 'POST':
-        searchParam = request.form["price"]
-        print(searchParam)
-
+        max_price = request.form["price"]
+        if InputValidator.is_number(max_price):
+            return render_template("/result.html", max_price=max_price)
+        # print(searchParam)
+        print(max_price)
     if request.method == 'GET':
         searchParam = request.args.get("q")
         print(searchParam);
