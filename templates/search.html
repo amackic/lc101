@@ -18,8 +18,7 @@
 </menu>
 <form name="searchMe" id="SearchForm" method="POST">
     
-        <input type="button" value="Advanced Search" id="adv-search" onclick="advancedSearch()"><br><br>
-    <label>Make</label>
+        <label>Make</label>
     <select name="make">
       <option value="{{makes[0]}}" selected>{{makes[0]}}</option>
       {% for make in makes[1:] %}
@@ -35,6 +34,7 @@
     <div>
 
         <button type="submit" id="searchButton" value="Search">Search</button>
+        <input type="button" value="Advanced Search" id="adv-search" onclick="advancedSearch()">
     </div>
 
 </form>
