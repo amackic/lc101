@@ -1,10 +1,27 @@
+
 {% extends "base.html" %}
 
 {% block content %}
 
 <form name="searchMe" id="SearchForm" method="POST">
-    <label>Car Type</label>
-    <input type="text" name="carType" onblur="evalInput()"/>
-    <button>Submit</button>
+    
+        <label>Make</label>
+    <select name="make">
+      <option value="{{makes[0]}}" selected>{{makes[0]}}</option>
+      {% for make in makes[1:] %}
+        <option value="{{make}}">{{make}}</option>
+      {% endfor %}
+    </select>
+    <label id="min-price">Min Price Amount
+        <input type="text" name="min-price" onblur="isNumeric('min-price', 'price_msg')">
+    </label>
+    <label>Max Price Amount</label>
+        <input type="text" name="price" id="price" onblur="isNumeric('price', 'price_msg')"/>
+    <span class="error" id=price_msg></span>
+    <div>
+
+        <button type="submit" id="searchButton" value="Search">Search</button>
+        <input type="button" value="Advanced Search" id="adv-search" onclick="advancedSearch()">
+    </div>
 
 {% endblock %}

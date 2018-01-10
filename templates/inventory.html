@@ -1,12 +1,11 @@
 <!doctype html>
 <html>
-
 <head>
 <title>AM AUTO</title>
     <link rel="stylesheet" type="text/css"
           href="{{url_for('static', filename='style.css')}}"/>
     <script type="text/javascript"
-            src="{{ url_for('static', filename='index.js') }}"></script>
+            src="{{url_for('static', filename='index.js') }}"></script>
 </head>
 <body>
 <menu>
@@ -14,15 +13,11 @@
          <uL>
             <li><a href="/">Home</a></li>
             <li><a href="/about">About</a></li>
-            <li><a href="/search?q=Honda"s>Search Inventory</a></li>
+            <li><a href="/search?q=Honda"s>Search</a></li>
+            <li><a href="/inventory"s>Inventory</a></li>
         </uL>
     </div>
 </menu>
-
-{% block content %}
-
-{% endblock %}
-
-
+<h1>Hello, Inventory</h1>
 </body>
 </html>
