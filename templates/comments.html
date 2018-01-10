@@ -1,0 +1,32 @@
+
+{% extends "base.html" %}
+{% block content %}
+    <h1>USER COMMENTS</h1>
+    <form name="addComment" action="comments" method="POST">
+        <label>
+            Add Your Comment:
+            <input type="text" name='comment' />
+        </label>
+        <input type="submit" value='Add Comment'/>
+    </form>
+
+    <hr />
+
+    {% if comments|length == 0 %}
+    <p>Be the first one to give us your opinion.</p>
+    {% else %}
+        Comments:
+        <ul>
+            {% for comment in comments %}
+                <li>{{comment.text}}
+                    <form method="POST" action="/delete_comment" style="display:inline-block;">
+                        <input type="hidden" name="comment-id" value="{{comment.id}}" />
+                        <input type="submit" value="delete" />
+                    </form>
+                </li>
+            {% endfor %}
+          </ul>
+    {% endif %}
+{% endblock %}
+
+

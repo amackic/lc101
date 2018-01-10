@@ -2,6 +2,8 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <script type="text/javascript"
+            src="{{ url_for('static', filename='search.js') }}"></script>
 
 <form name="searchMe" id="SearchForm" method="POST">
     
@@ -11,6 +13,11 @@
       {% for make in makes[1:] %}
         <option value="{{make}}">{{make}}</option>
       {% endfor %}
+{#      <option value="{{makes[0]}}" selected>{{makes[0].short_name}}</option>#}
+{#      {% for make in makes[1:] %}#}
+{#        <option value="{{make.short_name}}">{{make.short_name}}</option>#}
+{#      {% endfor %}#}
+
     </select>
     <label id="min-price">Min Price Amount
         <input type="text" name="min-price" onblur="isNumeric('min-price', 'price_msg')">
@@ -23,5 +30,8 @@
         <button type="submit" id="searchButton" value="Search">Search</button>
         <input type="button" value="Advanced Search" id="adv-search" onclick="advancedSearch()">
     </div>
+
+
+</form>
 
 {% endblock %}
