@@ -1,8 +1,10 @@
 
 {% extends "base.html" %}
+
 {% block content %}
     <script type="text/javascript"
             src="{{ url_for('static', filename='search.js') }}"></script>
+
 <form name="searchMe" id="SearchForm" method="POST">
     
         <label>Make</label>
@@ -29,5 +31,7 @@
         <input type="button" value="Advanced Search" id="adv-search" onclick="advancedSearch()">
     </div>
 
+
 </form>
+
 {% endblock %}

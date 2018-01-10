@@ -1,22 +1,7 @@
-<!doctype html>
-<html>
-<head>
-<title>AM AUTO</title>
-    <link rel="stylesheet" type="text/css"
-          href="{{url_for('static', filename='style.css')}}"/>
-    <script type="text/javascript"
-            src="{{ url_for('static', filename='index.js') }}"></script>
-</head>
-<body>
-<menu>
-    <div class="topnav" id="myTopnav">
-          <a href="/">HOME</a>
-          <a href="/search">SEARCH</a>
-          <a href="/inventory">INVENTORY</a>
-          <a href="/about">ABOUT</a>
-          <a href="/specials">SPECIALS</a>
-    </div>
-</menu>
+
+{% extends "base.html" %}
+
+{% block content %}
 <h1 > Hello World</h1>
-</body>
-</html>
+
+{% endblock %}
