@@ -6,16 +6,28 @@
 
     </head>
 <body>
+
     <menu>
         <div class="topnav" id="myTopnav">
               <a href="/">HOME</a>
               <a href="/search">SEARCH INVENTORY</a>
               <a href="/about">ABOUT</a>
+              <a href="/comments">USER COMMENTS</a>
+              <a href="/register">REGISTER</a>
+              <a href="/login">LOGIN</a>
         </div>
     </menu>
 
+
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        <ul>
+        {% for category,message in messages %}
+            <li class="{{category}}">{{message}}</li>
+        {% endfor %}
+        </ul>
+    {% endwith %}
+
     {% block content %}
     {% endblock %}
-
 </body>
 </html>

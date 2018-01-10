@@ -1,21 +1,8 @@
-<!doctype html>
-<html>
-<head>
-<title>AM AUTO</title>
-    <link rel="stylesheet" type="text/css"
-          href="{{url_for('static', filename='style.css')}}"/>
+
+{% extends "base.html" %}
+{% block content %}
     <script type="text/javascript"
             src="{{ url_for('static', filename='search.js') }}"></script>
-</head>
-<body>
-<menu>
-
-    <div class="topnav" id="myTopnav">
-          <a href="/">HOME</a>
-          <a href="/search">SEARCH INVENTORY</a>
-          <a href="/about">ABOUT</a>
-    </div>
-</menu>
 <form name="searchMe" id="SearchForm" method="POST">
     
         <label>Make</label>
@@ -24,6 +11,11 @@
       {% for make in makes[1:] %}
         <option value="{{make}}">{{make}}</option>
       {% endfor %}
+{#      <option value="{{makes[0]}}" selected>{{makes[0].short_name}}</option>#}
+{#      {% for make in makes[1:] %}#}
+{#        <option value="{{make.short_name}}">{{make.short_name}}</option>#}
+{#      {% endfor %}#}
+
     </select>
     <label id="min-price">Min Price Amount
         <input type="text" name="min-price" onblur="isNumeric('min-price', 'price_msg')">
@@ -38,5 +30,4 @@
     </div>
 
 </form>
-</body>
-</html>
+{% endblock %}
