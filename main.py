@@ -9,7 +9,7 @@ app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://am_auto:am_auto@localhost:8889/am_auto'
 app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
-app.secret_key = 'ThisIsMySecretKeyPleaseDoNotTellItToAnyone'
+app.secret_key = 'TestManipulationThisIsMySecretKeyPleaseDoNotTellItToAnyone'
 
 
 class Make(db.Model):
