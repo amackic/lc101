@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, request, session, flash, url_for
+from flask import Flask, redirect, render_template, request, session, flash, make_response,url_for
 from flask_sqlalchemy import SQLAlchemy
 import datetime
 from InputValidator import InputValidator
@@ -110,7 +110,12 @@ def specials():
 
 @app.route("/inventory")
 def inventory():
-    return render_template("inventory.html")
+    resp = make_response(render_template("inventory.html"))
+    resp.set_cookie("some_cookie",'32')
+    resp.set_cookie("some_cookie1",'322')
+
+
+    return resp
 
 
 @app.route('/logout')
