@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, request, session, flash
+from flask import Flask, redirect, render_template, request, session, flash, url_for
 from flask_sqlalchemy import SQLAlchemy
 import datetime
 from InputValidator import InputValidator
@@ -9,7 +9,7 @@ app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://am_auto:am_auto@localhost:8889/am_auto'
 app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
-app.secret_key = 'ThisIsMySecretKeyPleaseDoNotTellItToAnyone'
+app.secret_key = 'TestManipulationThisIsMySecretKeyPleaseDoNotTellItToAnyone'
 
 
 class Make(db.Model):
@@ -53,10 +53,10 @@ def login():
         password = request.form['password']
         user = User.query.filter_by(email=email).first()
         if user and user.password == password:
-            # TODO - "remember" that the user has logged in
+            session['user_id'] = user.id  #changed from email
             return redirect('/')
         else:
-            return render_template('login.html', error='invalidLogin')
+            flash('Invalid email and password combination. Please Try again', 'error')
 
     return render_template('login.html')
 
@@ -71,8 +71,9 @@ def register():
         if not existing_user:
             new_user = User(email, password)
             db.session.add(new_user)
+            db.session.flush()   #flush session to get id of inserted row
             db.session.commit()
-            session['email'] = email
+            session['user_id'] = new_user.id
             flash("You have successfully registered")
             return redirect('/')
         else:
@@ -83,9 +84,8 @@ def register():
 
 @app.before_request
 def require_login():
-    print('I am here')
     login_requirede_routes = ['comments']
-    if request.endpoint in login_requirede_routes and 'email' not in session:
+    if request.endpoint in login_requirede_routes and 'user_id' not in session:
         return redirect('/login')
 
 
@@ -113,6 +113,12 @@ def inventory():
     return render_template("inventory.html")
 
 
+@app.route('/logout')
+def logout():
+    del session['user_id']
+    return redirect('/')
+
+
 @app.route("/search", methods=['POST', 'GET'])
 def search():
     print("After that i am here")
@@ -133,19 +139,15 @@ def search():
 
 @app.route("/comments", methods=['GET', 'POST'])
 def comments():
+    user = User.query.get(session.get('user_id'))
     if request.method == 'POST':
-        print("this is post")
         comment_text = request.form['comment']
-        user = User.query.first()
         new_comment = Comment(comment_text, user.id)
         db.session.add(new_comment)
         db.session.commit()
-
-    if request.method == 'GET':
-        print("this is post")
+    id
     comments = Comment.query.all()
-    print(comments)
-    return render_template('comments.html', comments=comments)
+    return render_template('comments.html', comments=comments, userid=user.id)
 
 
 def retrieve_all_makes():

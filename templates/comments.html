@@ -21,7 +21,11 @@
                 <li>{{comment.text}}
                     <form method="POST" action="/delete_comment" style="display:inline-block;">
                         <input type="hidden" name="comment-id" value="{{comment.id}}" />
-                        <input type="submit" value="delete" />
+{#                        <input type="submit" value="delete" />#}
+
+                         {% if comment.owner_id == userid%}
+                            <input type="submit" value="delete" />
+                         {% endif %}
                     </form>
                 </li>
             {% endfor %}
