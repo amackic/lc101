@@ -1,6 +1,4 @@
 from flask import Flask, redirect, render_template, request, session, flash, make_response,url_for
-from flask_sqlalchemy import SQLAlchemy
-import datetime
 from InputValidator import InputValidator
 
 
@@ -8,42 +6,9 @@ app = Flask(__name__)
 app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://am_auto:am_auto@localhost:8889/am_auto'
 app.config['SQLALCHEMY_ECHO'] = True
-db = SQLAlchemy(app)
 app.secret_key = 'TestManipulationThisIsMySecretKeyPleaseDoNotTellItToAnyone'
 
-
-class Make(db.Model):
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(200))
-    short_name = db.Column(db.String(80))
-
-    def __init__(self, name, short_name):
-        self.name = name
-        self.short_name = short_name
-
-
-class Comment(db.Model):
-
-    id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.String(500))
-    owner_id = db.Column(db.Integer,db.ForeignKey('user.id'))
-
-    def __init__(self, text, owner_id):
-        self.text = text
-        self.owner_id = owner_id
-
-
-class User(db.Model):
-
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(100), unique=True)
-    password = db.Column(db.String(100))
-    comments = db.relationship('Comment', backref='owner')
-
-    def __init__(self, email, password):
-        self.email = email
-        self.password = password
+from models import db, User, Comment, Make
 
 
 @app.route('/login', methods=['POST', 'GET'])
@@ -67,7 +32,7 @@ def register():
         email = request.form['email']
         password = request.form['password']
         verify = request.form['verify']
-        existing_user = User.query.filter_by(email=email).first()
+        existing_user = db.User.query.filter_by(email=email).first()
         if not existing_user:
             new_user = User(email, password)
             db.session.add(new_user)
@@ -150,7 +115,6 @@ def comments():
         new_comment = Comment(comment_text, user.id)
         db.session.add(new_comment)
         db.session.commit()
-    id
     comments = Comment.query.all()
     return render_template('comments.html', comments=comments, userid=user.id)
 
