@@ -1,6 +1,6 @@
-from flask import Flask, redirect, render_template, request, session, flash, make_response,url_for
-from InputValidator import InputValidator
-
+from flask import Flask, redirect, render_template, request, session, flash, make_response
+from service.InputValidator import InputValidator
+from service.hasher import make_hash_from, are_strings_same
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -17,7 +17,7 @@ def login():
         email = request.form['email']
         password = request.form['password']
         user = User.query.filter_by(email=email).first()
-        if user and user.password == password:
+        if user and are_strings_same(password, user.password):
             session['user_id'] = user.id  #changed from email
             return redirect('/')
         else:
@@ -32,11 +32,14 @@ def register():
         email = request.form['email']
         password = request.form['password']
         verify = request.form['verify']
-        existing_user = db.User.query.filter_by(email=email).first()
+        if password != verify:
+            flash("Passwords must be identical")
+            return render_template('register.html')
+        existing_user = User.query.filter_by(email=email).first()
         if not existing_user:
-            new_user = User(email, password)
+            new_user = User(email, make_hash_from(password))
             db.session.add(new_user)
-            db.session.flush()   #flush session to get id of inserted row
+            db.session.flush()
             db.session.commit()
             session['user_id'] = new_user.id
             flash("You have successfully registered")
@@ -78,8 +81,6 @@ def inventory():
     resp = make_response(render_template("inventory.html"))
     resp.set_cookie("some_cookie",'32')
     resp.set_cookie("some_cookie1",'322')
-
-
     return resp
 
 
