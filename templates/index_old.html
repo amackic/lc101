@@ -1,0 +1,37 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+ <div>
+        <style>
+                body, html {
+                    height: 100%;
+                    margin: 0;
+                }
+                
+                .bg {
+                    /* The image used */
+                    background-image: url("/static/images/alpha_romeo.jpg");
+                
+                    /* Full height */
+                    height: 100%; 
+                
+                    /* Center and scale the image nicely */
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                }
+                </style>
+
+   
+ </div>
+ <div class="bg">
+    <div class="container-fluid" style="padding:125px;color:#ffffff;">
+            <h1 style="font-size:3em;">AM AUTOS</h1>
+            <h2>Best selection.</h2>
+            <h2>Best prices.</h2>
+            <h2>Best cars.</h2>
+    </div>
+</div>
+{% endblock %}
