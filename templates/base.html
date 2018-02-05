@@ -47,15 +47,18 @@
             <li class="nav-item">
                 <a class="nav-link" href="/search">Search Inventory</a>
               </li>
+              {% if not session %}
             <li class="nav-item">
               <a class="nav-link" href="/register">Register</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/login">LOGIN</a>
             </li>
+            {% else %}
             <li class="nav-item">
               <a class="nav-link" href="/logout">LOGOUT</a>
             </li>
+            {% endif %}
           </ul>
           <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search Site" aria-label="Search Site">
